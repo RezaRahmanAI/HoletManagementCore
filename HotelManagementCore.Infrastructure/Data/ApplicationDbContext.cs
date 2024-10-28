@@ -52,7 +52,7 @@ namespace HotelManagementCore.Infrastructure.Data
                     price = 600.00,
                     Sqft = 1500,
                     Occupency = 4,
-                    ImgUrl = "https://images.unsplash.com/photo-1582719478148-d9e4c3660974",
+                    ImgUrl = "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
                     CreatedDate = new DateTime(2023, 7, 5),
                     UpdatedDate = new DateTime(2024, 8, 12)
                 },
@@ -76,7 +76,7 @@ namespace HotelManagementCore.Infrastructure.Data
                     price = 400.00,
                     Sqft = 2000,
                     Occupency = 7,
-                    ImgUrl = "https://images.unsplash.com/photo-1505692794400-7f6a56eee78e",
+                    ImgUrl = "https://images.unsplash.com/photo-1559599239-0c5b2d8d9d31",
                     CreatedDate = new DateTime(2023, 1, 12),
                     UpdatedDate = new DateTime(2024, 3, 30)
                 }
