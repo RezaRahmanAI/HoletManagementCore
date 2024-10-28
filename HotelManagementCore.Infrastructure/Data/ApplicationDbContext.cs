@@ -13,5 +13,75 @@ namespace HotelManagementCore.Infrastructure.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Villa> Villas { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Villa>().HasData(
+
+                new Villa
+                {
+                    Id = 1,
+                    Name = "Ocean View Retreat",
+                    Description = "A luxurious villa with breathtaking ocean views and modern amenities.",
+                    price = 450.00,
+                    Sqft = 2500,
+                    Occupency = 8,
+                    ImgUrl = "https://example.com/images/ocean_view_retreat.jpg",
+                    CreatedDate = new DateTime(2023, 3, 15),
+                    UpdatedDate = new DateTime(2024, 5, 10)
+                },
+                new Villa
+                {
+                    Id = 2,
+                    Name = "Mountain Escape Lodge",
+                    Description = "A cozy lodge nestled in the mountains, perfect for nature lovers.",
+                    price = 300.00,
+                    Sqft = 1800,
+                    Occupency = 6,
+                    ImgUrl = "https://example.com/images/mountain_escape_lodge.jpg",
+                    CreatedDate = new DateTime(2022, 11, 21),
+                    UpdatedDate = new DateTime(2024, 6, 18)
+                },
+                new Villa
+                {
+                    Id = 3,
+                    Name = "City Center Penthouse",
+                    Description = "A spacious penthouse located in the heart of the city with stunning skyline views.",
+                    price = 600.00,
+                    Sqft = 1500,
+                    Occupency = 4,
+                    ImgUrl = "https://example.com/images/city_center_penthouse.jpg",
+                    CreatedDate = new DateTime(2023, 7, 5),
+                    UpdatedDate = new DateTime(2024, 8, 12)
+                },
+                new Villa
+                {
+                    Id = 4,
+                    Name = "Beachfront Bungalow",
+                    Description = "A charming bungalow located directly on the beach, ideal for a peaceful getaway.",
+                    price = 500.00,
+                    Sqft = 2200,
+                    Occupency = 5,
+                    ImgUrl = "https://example.com/images/beachfront_bungalow.jpg",
+                    CreatedDate = new DateTime(2023, 2, 18),
+                    UpdatedDate = new DateTime(2024, 4, 20)
+                },
+                new Villa
+                {
+                    Id = 5,
+                    Name = "Countryside Villa",
+                    Description = "A beautiful villa in the countryside with vast green landscapes and fresh air.",
+                    price = 400.00,
+                    Sqft = 2000,
+                    Occupency = 7,
+                    ImgUrl = "https://example.com/images/countryside_villa.jpg",
+                    CreatedDate = new DateTime(2023, 1, 12),
+                    UpdatedDate = new DateTime(2024, 3, 30)
+                }
+
+                );
+        }
     }
 }
