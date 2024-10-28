@@ -28,7 +28,7 @@ namespace HotelManagementCore.Infrastructure.Data
                     price = 450.00,
                     Sqft = 2500,
                     Occupency = 8,
-                    ImgUrl = "https://example.com/images/ocean_view_retreat.jpg",
+                    ImgUrl = "https://images.unsplash.com/photo-1502672023488-70e25813eb80",
                     CreatedDate = new DateTime(2023, 3, 15),
                     UpdatedDate = new DateTime(2024, 5, 10)
                 },
@@ -40,7 +40,7 @@ namespace HotelManagementCore.Infrastructure.Data
                     price = 300.00,
                     Sqft = 1800,
                     Occupency = 6,
-                    ImgUrl = "https://example.com/images/mountain_escape_lodge.jpg",
+                    ImgUrl = "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
                     CreatedDate = new DateTime(2022, 11, 21),
                     UpdatedDate = new DateTime(2024, 6, 18)
                 },
@@ -52,7 +52,7 @@ namespace HotelManagementCore.Infrastructure.Data
                     price = 600.00,
                     Sqft = 1500,
                     Occupency = 4,
-                    ImgUrl = "https://example.com/images/city_center_penthouse.jpg",
+                    ImgUrl = "https://images.unsplash.com/photo-1582719478148-d9e4c3660974",
                     CreatedDate = new DateTime(2023, 7, 5),
                     UpdatedDate = new DateTime(2024, 8, 12)
                 },
@@ -64,7 +64,7 @@ namespace HotelManagementCore.Infrastructure.Data
                     price = 500.00,
                     Sqft = 2200,
                     Occupency = 5,
-                    ImgUrl = "https://example.com/images/beachfront_bungalow.jpg",
+                    ImgUrl = "https://images.unsplash.com/photo-1536104968055-4d61aa56f46a",
                     CreatedDate = new DateTime(2023, 2, 18),
                     UpdatedDate = new DateTime(2024, 4, 20)
                 },
@@ -76,7 +76,7 @@ namespace HotelManagementCore.Infrastructure.Data
                     price = 400.00,
                     Sqft = 2000,
                     Occupency = 7,
-                    ImgUrl = "https://example.com/images/countryside_villa.jpg",
+                    ImgUrl = "https://images.unsplash.com/photo-1505692794400-7f6a56eee78e",
                     CreatedDate = new DateTime(2023, 1, 12),
                     UpdatedDate = new DateTime(2024, 3, 30)
                 }

@@ -13,7 +13,7 @@ namespace HoletManagementCore.Controllers
         public IActionResult Index()
         {
             var villas = _context.Villas.ToList();
-            return View();
+            return View(villas);
         }
     }
 }

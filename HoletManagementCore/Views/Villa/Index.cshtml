@@ -1,0 +1,42 @@
+﻿@model IEnumerable<HotelManagementCore.Domain.Entities.Villa>
+
+@{
+    ViewData["Title"] = "Villa List";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Available Villas</h2>
+    <div class="row">
+        @foreach (var villa in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    @if (!string.IsNullOrEmpty(villa.ImgUrl))
+                    {
+                        <img src="@villa.ImgUrl" class="card-img-top" alt="@villa.Name" style="height: 200px; object-fit: cover;">
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@villa.Name</h5>
+                        <p class="card-text">@villa.Description</p>
+                        <p><strong>Price:</strong> $@villa.price</p>
+                        <p><strong>Sqft:</strong> @villa.Sqft sq ft</p>
+                        <p><strong>Occupancy:</strong> @villa.Occupency people</p>
+                        @if (villa.CreatedDate.HasValue)
+                        {
+                            <p><small class="text-muted">Created on: @villa.CreatedDate.Value.ToString("yyyy-MM-dd")</small></p>
+                        }
+                        @if (villa.UpdatedDate.HasValue)
+                        {
+                            <p><small class="text-muted">Last updated: @villa.UpdatedDate.Value.ToString("yyyy-MM-dd")</small></p>
+                        }
+                    </div>
+                    <div class="card-footer">
+                        <a href="/Villa/Details/@villa.Id" class="btn btn-primary btn-sm">View Details</a>
+                        <a href="/Villa/Edit/@villa.Id" class="btn btn-secondary btn-sm">Edit</a>
+                        <a href="/Villa/Delete/@villa.Id" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this villa?');">Delete</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
