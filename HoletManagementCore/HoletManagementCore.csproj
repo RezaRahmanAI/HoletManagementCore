@@ -18,4 +18,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HotelManagementCore.Infrastructure\HotelManagementCore.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
