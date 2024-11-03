@@ -1,4 +1,5 @@
-﻿using HotelManagementCore.Infrastructure.Data;
+﻿using HotelManagementCore.Domain.Entities;
+using HotelManagementCore.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HoletManagementCore.Controllers
@@ -14,6 +15,30 @@ namespace HoletManagementCore.Controllers
         {
             var villas = _context.Villas.ToList();
             return View(villas);
+        }
+
+        public IActionResult Create()
+        {
+            
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Villa villa)
+        {            
+
+            if (ModelState.IsValid)
+            {
+
+                villa.CreatedDate = DateTime.Now;
+                _context.Villas.Add(villa);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index");
+
+            }
+
+            return View(villa);
         }
     }
 }
