@@ -4,6 +4,7 @@ using HotelManagementCore.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelManagementCore.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241108071057_AddingVillaNumber")]
+    partial class AddingVillaNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -202,55 +205,46 @@ namespace HotelManagementCore.Infrastructure.Migrations
                         new
                         {
                             VillaNo = 101,
-                            SpecialDetails = "N/A",
                             VillaId = 1
                         },
                         new
                         {
                             VillaNo = 102,
-                            SpecialDetails = "Ocean view",
                             VillaId = 1
                         },
                         new
                         {
                             VillaNo = 103,
-                            SpecialDetails = "Close to pool",
                             VillaId = 1
                         },
                         new
                         {
                             VillaNo = 201,
-                            SpecialDetails = "Pet-friendly",
                             VillaId = 2
                         },
                         new
                         {
                             VillaNo = 202,
-                            SpecialDetails = "Upper level",
                             VillaId = 2
                         },
                         new
                         {
                             VillaNo = 203,
-                            SpecialDetails = "Garden view",
                             VillaId = 2
                         },
                         new
                         {
                             VillaNo = 301,
-                            SpecialDetails = "Mountain view",
                             VillaId = 3
                         },
                         new
                         {
                             VillaNo = 302,
-                            SpecialDetails = "Secluded",
                             VillaId = 3
                         },
                         new
                         {
                             VillaNo = 303,
-                            SpecialDetails = "Near spa",
                             VillaId = 3
                         });
                 });

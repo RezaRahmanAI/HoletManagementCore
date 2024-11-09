@@ -4,17 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HoletManagementCore.Controllers
 {
-    public class VillaController : Controller
+    public class VillaNumberController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public VillaController(ApplicationDbContext context)
+        public VillaNumberController(ApplicationDbContext context)
         {
             _context = context;
         }
         public IActionResult Index()
         {
-            var villas = _context.Villas.ToList();
-            return View(villas);
+            var villaNumbers = _context.VillaNumbers.ToList();
+            return View(villaNumbers);
         }
 
         public IActionResult Create()

@@ -1,4 +1,5 @@
 ﻿using HotelManagementCore.Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace HotelManagementCore.Infrastructure.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Villa> Villas { get; set; }
+        public DbSet<VillaNumber> VillaNumbers { get; set; }
+        public DbSet<ApplicationUser> applicationUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -81,7 +84,24 @@ namespace HotelManagementCore.Infrastructure.Data
                     UpdatedDate = new DateTime(2024, 3, 30)
                 }
 
+               
                 );
+
+            modelBuilder.Entity<VillaNumber>().HasData(
+
+                new VillaNumber { VillaNo = 101, VillaId = 1, SpecialDetails = "N/A" },
+                new VillaNumber { VillaNo = 102, VillaId = 1, SpecialDetails = "Ocean view" },
+                new VillaNumber { VillaNo = 103, VillaId = 1, SpecialDetails = "Close to pool" },
+                new VillaNumber { VillaNo = 201, VillaId = 2, SpecialDetails = "Pet-friendly" },
+                new VillaNumber { VillaNo = 202, VillaId = 2, SpecialDetails = "Upper level" },
+                new VillaNumber { VillaNo = 203, VillaId = 2, SpecialDetails = "Garden view" },
+                new VillaNumber { VillaNo = 301, VillaId = 3, SpecialDetails = "Mountain view" },
+                new VillaNumber { VillaNo = 302, VillaId = 3, SpecialDetails = "Secluded" },
+                new VillaNumber { VillaNo = 303, VillaId = 3, SpecialDetails = "Near spa" }
+
+
+
+             );
         }
     }
 }
