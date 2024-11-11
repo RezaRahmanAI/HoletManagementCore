@@ -1,21 +1,19 @@
 ﻿@model HotelManagementCore.Domain.Entities.Villa
 
-
 @{
-    ViewData["Title"] = ViewBag.Title;
+    ViewData["Title"] = "Update Villa";
 }
 
 <div class="container mt-5">
     <h2 class="text-center mb-4 bg-primary">
-         Update Ville
+        Update Villa
     </h2>
-    @* <h2 class="text-center mb-4 bg-primary">
-        @(ViewBag.Title == "Update" ? "Update Ville" : " Create New Villa")
-    </h2> *@
-    <form asp-action="Update" method="post">
+    <form asp-action="Update" method="post" enctype="multipart/form-data">
 
-        @* <span asp-validation-summary="None"></span> *@
-        <input asp-for="Id" hidden />
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <input asp-for="Id" type="hidden" />
+
         <div class="mb-3">
             <label asp-for="Name" class="form-label">Name</label>
             <input asp-for="Name" class="form-control" placeholder="Enter villa name" required />
@@ -45,11 +43,17 @@
             <span asp-validation-for="Occupency" class="text-danger"></span>
         </div>
 
-        <div class="mb-3">
+        @* <div class="mb-3">
             <label asp-for="ImgUrl" class="form-label">Image URL</label>
             <input asp-for="ImgUrl" type="url" class="form-control" placeholder="Enter image URL" />
             <span asp-validation-for="ImgUrl" class="text-danger"></span>
+        </div> *@
+        <div class="mb-3">
+            <label asp-for="ImgUrl" class="form-label">Image URL</label>
+            <input asp-for="ImgUrl" type="text" class="form-control" placeholder="Enter image URL or path" />
+            <span asp-validation-for="ImgUrl" class="text-danger"></span>
         </div>
+
 
         <div class="mt-4">
             <button type="submit" class="btn btn-primary">
@@ -59,4 +63,3 @@
         </div>
     </form>
 </div>
-
