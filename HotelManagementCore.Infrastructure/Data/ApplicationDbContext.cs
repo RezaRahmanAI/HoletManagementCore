@@ -15,6 +15,7 @@ namespace HotelManagementCore.Infrastructure.Data
 
         public DbSet<Villa> Villas { get; set; }
         public DbSet<VillaNumber> VillaNumbers { get; set; }
+        public DbSet<Amenity> Amenities { get; set; }
         public DbSet<ApplicationUser> applicationUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -102,6 +103,80 @@ namespace HotelManagementCore.Infrastructure.Data
 
 
              );
+
+            modelBuilder.Entity<Amenity>().HasData(
+                new Amenity
+                {
+                    Id = 1,
+                    Name = "Wi-Fi",
+                    Desctiption = "High-speed internet available throughout the villa.",
+                    VillaId = 1
+                },
+                new Amenity
+                {
+                    Id = 2,
+                    Name = "Pool",
+                    Desctiption = "Private pool with ocean view.",
+                    VillaId = 1
+                },
+                new Amenity
+                {
+                    Id = 3,
+                    Name = "Hot Tub",
+                    Desctiption = "Outdoor hot tub for a relaxing experience.",
+                    VillaId = 2
+                },
+                new Amenity
+                {
+                    Id = 4,
+                    Name = "Fireplace",
+                    Desctiption = "Cozy indoor fireplace for chilly mountain nights.",
+                    VillaId = 2
+                },
+                new Amenity
+                {
+                    Id = 5,
+                    Name = "Balcony",
+                    Desctiption = "Spacious balcony with a panoramic city skyline view.",
+                    VillaId = 3
+                },
+                new Amenity
+                {
+                    Id = 6,
+                    Name = "Gym",
+                    Desctiption = "Fully equipped gym available to guests.",
+                    VillaId = 3
+                },
+                new Amenity
+                {
+                    Id = 7,
+                    Name = "Beach Access",
+                    Desctiption = "Direct access to the beach from the villa.",
+                    VillaId = 4
+                },
+                new Amenity
+                {
+                    Id = 8,
+                    Name = "Outdoor BBQ",
+                    Desctiption = "Outdoor barbecue area for social gatherings.",
+                    VillaId = 4
+                },
+                new Amenity
+                {
+                    Id = 9,
+                    Name = "Greenhouse",
+                    Desctiption = "Beautiful greenhouse with exotic plants.",
+                    VillaId = 5
+                },
+                new Amenity
+                {
+                    Id = 10,
+                    Name = "Cycling Trails",
+                    Desctiption = "Enjoy scenic cycling trails around the countryside.",
+                    VillaId = 5
+                }
+            );
+
         }
     }
 }

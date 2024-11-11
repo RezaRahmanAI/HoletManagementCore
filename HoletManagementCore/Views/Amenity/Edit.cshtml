@@ -1,0 +1,42 @@
+﻿@model AmenityVM
+
+@{
+    ViewData["Title"] = "Create Amenity";
+}
+
+<div class="container my-5">
+
+    <h2 class="text-center mb-4">Create New Amenity</h2>
+
+    <form asp-action="Edit" method="post">
+        <input asp-for="Amenity.Id" hidden />
+        <div class="form-group mb-3">
+            <label asp-for="@Model.Amenity.VillaId" class="form-label">Villa ID</label>
+            <select asp-for="Amenity.VillaId" class="form-control" asp-items="@Model.VillaList">
+                <option value="">-- Select Villa --</option>
+            </select>
+            <span asp-validation-for="Amenity.VillaId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Amenity.Name" class="form-label">Amenity Name</label>
+            <input asp-for="Amenity.Name" class="form-control" />
+            <span asp-validation-for="Amenity.Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Amenity.Desctiption" class="form-label">Desctiption</label>
+            <textarea asp-for="Amenity.Desctiption" class="form-control"></textarea>
+            <span asp-validation-for="Amenity.Desctiption" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <a asp-action="Index" class="btn btn-secondary m-2">Cancel</a>
+            <button type="submit" class="btn btn-primary m-2">Update</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

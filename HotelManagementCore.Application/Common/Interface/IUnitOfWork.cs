@@ -9,6 +9,7 @@ namespace HotelManagementCore.Application.Common.Interface
     public interface IUnitOfWork
     {
         IVillaRepository Villa {  get; }
+        IAmenityRepository Amenity {  get; }
         IVillaNumberRepository VillaNumber { get; }
         void Save();
     }

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Amenity>
+
+@{
+    ViewData["Title"] = "Amenity";
+}
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Amenity</h2>
+    <div class="d-flex justify-content-end mb-3">
+        <a asp-controller="Amenity" asp-action="Create" class="btn btn-primary">Create New</a>
+    </div>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Amenity ID</th>
+                <th scope="col">Amenity Name</th>
+                <th scope="col">Villa Name</th>
+                <th scope="col">Details</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td>@obj.Id</td>
+                    <td>@obj.Name</td>
+                    <td>@obj.Villa.Name</td>
+                    <td>@obj.Desctiption</td>
+                    <td>
+                        <!-- Edit Button -->
+                        <a href="@Url.Action("Edit", "Amenity", new { id = obj.Id })" class="btn btn-primary">Edit</a>
+
+                        <!-- Delete Button with a Confirmation -->
+                        <form action="@Url.Action("Delete", "Amenity", new { id = obj.Id })" method="post" class="d-inline">
+                            <button type="submit" class="btn  btn-danger" onclick="return confirm('Are you sure you want to delete this villa number?');">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
