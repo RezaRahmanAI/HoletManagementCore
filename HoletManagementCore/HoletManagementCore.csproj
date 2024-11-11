@@ -19,8 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HotelManagementCore.Domain\HotelManagementCore.Domain.csproj" />
     <ProjectReference Include="..\HotelManagementCore.Infrastructure\HotelManagementCore.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\Villa\" />
   </ItemGroup>
 
 </Project>

@@ -1,92 +1,129 @@
-﻿using HotelManagementCore.Domain.Entities;
+﻿using HoletManagementCore.ViewModels;
+using HotelManagementCore.Application.Common.Interface;
+using HotelManagementCore.Domain.Entities;
 using HotelManagementCore.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace HoletManagementCore.Controllers
 {
     public class VillaNumberController : Controller
     {
-        private readonly ApplicationDbContext _context;
-        public VillaNumberController(ApplicationDbContext context)
+        private readonly IUnitOfWork _unitOfWork;
+        public VillaNumberController(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            var villaNumbers = _context.VillaNumbers.ToList();
+            var villaNumbers = _unitOfWork.VillaNumber.GetAll(includeProperties: "Villa");
+            //var villaNumbers = _unitOfWork.VillaNumbers.Include(u => u.Villa).ToList();
             return View(villaNumbers);
         }
 
         public IActionResult Create()
         {
-            return View();
+            //ViewBag.Villas = new SelectList(_context.Villas, "Id", "Name");
+
+            var vm = new VillaNumberVM
+            {
+                VillaList = _unitOfWork.Villa.GetAll().Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                })
+
+            };
+            return View(vm);
         }
 
         [HttpPost]
-        public IActionResult Create(Villa villa)
+        public IActionResult Create(VillaNumberVM obj)
         {
 
+            bool villaNoExist = _unitOfWork.VillaNumber.Any(x => x.VillaNo == obj.VillaNumber.VillaNo);
 
-            if (villa.Name == villa.Description)
+            //if (villa.Name == villa.Description)
+            //{
+            //    ModelState.AddModelError("Name", "Name and Description can't be same");
+            //}
+            ModelState.Remove("Villa");
+
+            if (ModelState.IsValid && !villaNoExist)
             {
-                ModelState.AddModelError("Name", "Name and Description can't be same");
-            }
-
-            if (ModelState.IsValid)
-            {
-
-                villa.CreatedDate = DateTime.Now;
-                _context.Villas.Add(villa);
-                TempData["success"] = "The Villa has been created";
-                _context.SaveChanges();
+                
+                _unitOfWork.VillaNumber.Add(obj.VillaNumber);
+                TempData["success"] = "The Villa Number has been created";
+                _unitOfWork.Save();
 
                 return RedirectToAction("Index");
 
             }
 
-            return View(villa);
+            if (villaNoExist)
+            {
+                TempData["error"] = "The villa number already exist";
+            }
+
+            obj.VillaList = _unitOfWork.Villa.GetAll().Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+            });
+
+            return View(obj);
         }
 
         public IActionResult Edit(int Id)
         {
 
-            ViewBag.Title = "Update";
-
-            Villa? obj = _context.Villas.FirstOrDefault(x => x.Id == Id);
-            if (obj==null)
+            VillaNumberVM villaNumberVM = new()
             {
-                return NotFound();
+                VillaList = _unitOfWork.Villa.GetAll().Select(x => new SelectListItem
+                {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+                }),
+                VillaNumber = _unitOfWork.VillaNumber.Get(x => x.VillaNo == Id)
+            };
+
+            if (villaNumberVM.VillaNumber == null)
+            {
+                return RedirectToAction("Error", "Home");
             }
-            return View("Edit",obj);
+
+            
+            return View(villaNumberVM);
         }
 
         [HttpPost]
-        public IActionResult Update(Villa villa)
-        {
-            villa.UpdatedDate = DateTime.Now;
+        public IActionResult Edit(VillaNumberVM obj)
+        {            
             if (ModelState.IsValid)
             {
-                _context.Update(villa);
-                _context.SaveChanges();
+                _unitOfWork.VillaNumber.Update(obj.VillaNumber);
+                _unitOfWork.Save();
+                TempData["Success"] = "Villa Number has been updated successfully";
                 return RedirectToAction("Index");
 
             }
 
-            return View(villa);
+            return View(obj);
         }
 
         public IActionResult Delete(int Id)
         {
 
-            Villa? villa = _context.Villas.FirstOrDefault(x => x.Id == Id);
+            VillaNumber? villa = _unitOfWork.VillaNumber.Get(x => x.VillaNo == Id);
             if (villa == null)
             {
                 return BadRequest();
             }
             
-            _context.Villas.Remove(villa);
-            TempData["success"] = "The Villa has been deleted";
-            _context.SaveChanges(true);
+            _unitOfWork.VillaNumber.Delete(villa);
+            TempData["success"] = "The VillaNumber has been deleted";
+            _unitOfWork.Save();
 
             return RedirectToAction("Index");
 

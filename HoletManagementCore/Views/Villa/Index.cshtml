@@ -7,17 +7,15 @@
 <div class="container mt-4">
     <h2 class="text-center mb-4">Available Villas</h2>
     <div class="d-flex justify-content-end mb-3">
-        <a asp-controller="Villa" asp-action="Create" class="btn btn-primary text-right">Create new Villa</a>
-     </div>
+        <a asp-controller="Villa" asp-action="Create" class="btn btn-primary">Create New Villa</a>
+    </div>
     <div class="row">
         @foreach (var villa in Model)
         {
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm">
-                    @if (!string.IsNullOrEmpty(villa.ImgUrl))
-                    {
-                        <img src="@villa.ImgUrl" class="card-img-top" alt="@villa.Name" style="height: 200px; object-fit: cover;">
-                    }
+                    <img src="@(string.IsNullOrEmpty(villa.ImgUrl) ? "/images/default-villa.jpg" : villa.ImgUrl)"
+                         class="card-img-top" alt="@villa.Name" style="height: 200px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title">@villa.Name</h5>
                         <p class="card-text">@villa.Description</p>

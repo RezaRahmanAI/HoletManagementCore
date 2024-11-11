@@ -1,0 +1,38 @@
+﻿@model VillaNumberVM
+
+
+<div class="container my-5">
+
+    <h2 class="text-center mb-4">Update Villa Number</h2>
+
+    <form asp-action="Edit" method="post">
+        <div class="form-group mb-3">
+            <label asp-for="@Model.VillaNumber.VillaId" class="form-label">Villa ID</label>
+            <select asp-for="VillaNumber.VillaId" class="form-control" asp-items="@Model.VillaList">
+                <option value="">-- Select Villa --</option>
+            </select>
+            <span asp-validation-for="VillaNumber.VillaId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="VillaNumber.VillaNo" class="form-label" style="readonly">Villa Number</label>
+            <input asp-for="VillaNumber.VillaNo" class="form-control" readonly />
+            <span asp-validation-for="VillaNumber.VillaNo" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="VillaNumber.SpecialDetails" class="form-label">Special Details</label>
+            <textarea asp-for="VillaNumber.SpecialDetails" class="form-control"></textarea>
+            <span asp-validation-for="VillaNumber.SpecialDetails" class="text-danger"></span>
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <a asp-action="Index" class="btn btn-secondary m-2">Cancel</a>
+            <button type="submit" class="btn btn-primary m-2">Update</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
