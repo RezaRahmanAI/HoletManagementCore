@@ -1,10 +1,12 @@
 ﻿using HotelManagementCore.Application.Common.Interface;
 using HotelManagementCore.Domain.Entities;
 using HotelManagementCore.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HoletManagementCore.Controllers
 {
+    [Authorize]
     public class VillaController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

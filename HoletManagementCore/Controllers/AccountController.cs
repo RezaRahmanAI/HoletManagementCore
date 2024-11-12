@@ -152,5 +152,10 @@ namespace HoletManagementCore.Controllers
            
             return View(rcgVM);
         }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

@@ -1,13 +1,17 @@
 ﻿using HoletManagementCore.ViewModels;
 using HotelManagementCore.Application.Common.Interface;
+using HotelManagementCore.Application.Utility;
 using HotelManagementCore.Domain.Entities;
 using HotelManagementCore.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace HoletManagementCore.Controllers
 {
+    [Authorize(Roles = SD.Role_Admin)]
+    
     public class AmenityController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
