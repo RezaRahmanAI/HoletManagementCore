@@ -23,7 +23,7 @@ namespace HoletManagementCore.ViewModels
 
         [Display(Name = "Phone Number")]
         public string?  Phone { get; set; }
-        public bool RememberMe { get; set; }
+        //public bool RememberMe { get; set; }
         public string RedirectUrl { get; set; }
 
         [ValidateNever]

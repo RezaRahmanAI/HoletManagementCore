@@ -80,65 +80,6 @@
     </div>
 </form>
 
-<!-- Villas List Section -->
-@* <div class="container mt-4">
-    <h3 class="text-white">Available Villas</h3>
-    <div class="row">
-        @foreach (var villa in Model.VillaList)
-        {
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <img src="@villa.ImgUrl" class="card-img-top" alt="@villa.Name">
-                    <div class="card-body">
-                        <h5 class="card-title">@villa.Name</h5>
-                        <p class="card-text">
-                            Amenities: @string.Join(", ", villa.Amenities.Select(a => a.Name))
-                        </p>
-                        <a href="#" class="btn btn-primary">View Details</a>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-</div> *@
-
-
-<!-- Villas List Section -->
-@* <div class="container mt-4">
-    <h3 class="text-white">Available Villas</h3>
-    <div class="row">
-        @foreach (var villa in Model.VillaList)
-        {
-            <div class="col-md-6 col-lg-4 mb-3">
-                <div class="card mb-3" style="max-width: 540px; background-color: #343a40; color: white;">
-                    <div class="row g-0">
-                        <div class="col-md-4">
-                            <img src="@villa.ImgUrl" class="img-fluid rounded-start" alt="@villa.Name">
-                        </div>
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title" style="color: yellow">@villa.Name</h5>
-                                <p class="card-text">
-                                    Amenities: @string.Join(", ", villa.Amenities.Select(a => a.Name))
-                                </p>
-                                <p class="card-text">
-                                    <small class="text-body-secondary">Max capacity: @villa.Occupency</small> <br/>
-                                    <small class="text-body-secondary">villa Size: @villa.Sqft</small> <br />
-                                    <small class="text-body-secondary">Price:<span style="color: yellow"> @villa.price</span> </small> <br />
-                                </p> 
-                                <div class="d-flex justify-content-between">
-                                    <a href="@Url.Action("Details", "Villa", new { id = villa.Id })" class="btn btn-primary mt-2">View Details</a>
-                                    <a href="@Url.Action("Book", "Villa", new { id = villa.Id })" class="btn btn-primary mt-2">View Details</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-</div> *@
 
 
 <div class="container mt-4">
