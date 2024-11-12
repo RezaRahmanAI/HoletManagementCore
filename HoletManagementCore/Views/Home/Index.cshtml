@@ -1,8 +1,191 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model HomeVm
+@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    /* Custom style to control the carousel image height */
+    .carousel-inner img {
+        height: 400px; /* Adjust this value as needed */
+        object-fit: cover;
+    }
+
+    .villa-card img {
+        width: 100%;
+        height: 150px; /* Set a fixed height for villa images */
+        object-fit: cover; /* Make sure image covers the fixed area */
+    }
+
+    .villa-card {
+        max-width: 540px;
+        background-color: #343a40;
+        color: white;
+    }
+</style>
+
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    
+    <!-- Carousel Inner -->
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="~/images/slide-1.jpg" class="d-block w-100" alt="Slide 1">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/slide-2.jpg" class="d-block w-100" alt="Slide 2">
+        </div>
+        <div class="carousel-item">
+            <img src="~/images/slide-3.jpg" class="d-block w-100" alt="Slide 3">
+        </div>
+    </div>
+
+    <!-- Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
 </div>
+
+<!-- Form Section Below Carousel -->
+<form method="post"  style="background-color: black; color: white;">
+    <div class="container-fluid row py-4">
+        <div class="col-md-4 mb-3">
+            <label for="checkInDate" class="form-label">Check In Date</label>
+            <input type="date" id="checkInDate" name="CheckInDate" class="form-control" 
+                   value="@Model.CheckInDate.ToString("yyyy-MM-dd")" />
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <label for="numNights" class="form-label">No. of Nights</label>
+            <select id="numNights" name="Night" class="form-control">
+                @for (int i = 0; i < 11; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-4 mb-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-success w-100">Check Availability</button>
+        </div>
+    </div>
+</form>
+
+<!-- Villas List Section -->
+@* <div class="container mt-4">
+    <h3 class="text-white">Available Villas</h3>
+    <div class="row">
+        @foreach (var villa in Model.VillaList)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="@villa.ImgUrl" class="card-img-top" alt="@villa.Name">
+                    <div class="card-body">
+                        <h5 class="card-title">@villa.Name</h5>
+                        <p class="card-text">
+                            Amenities: @string.Join(", ", villa.Amenities.Select(a => a.Name))
+                        </p>
+                        <a href="#" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div> *@
+
+
+<!-- Villas List Section -->
+@* <div class="container mt-4">
+    <h3 class="text-white">Available Villas</h3>
+    <div class="row">
+        @foreach (var villa in Model.VillaList)
+        {
+            <div class="col-md-6 col-lg-4 mb-3">
+                <div class="card mb-3" style="max-width: 540px; background-color: #343a40; color: white;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="@villa.ImgUrl" class="img-fluid rounded-start" alt="@villa.Name">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title" style="color: yellow">@villa.Name</h5>
+                                <p class="card-text">
+                                    Amenities: @string.Join(", ", villa.Amenities.Select(a => a.Name))
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-body-secondary">Max capacity: @villa.Occupency</small> <br/>
+                                    <small class="text-body-secondary">villa Size: @villa.Sqft</small> <br />
+                                    <small class="text-body-secondary">Price:<span style="color: yellow"> @villa.price</span> </small> <br />
+                                </p> 
+                                <div class="d-flex justify-content-between">
+                                    <a href="@Url.Action("Details", "Villa", new { id = villa.Id })" class="btn btn-primary mt-2">View Details</a>
+                                    <a href="@Url.Action("Book", "Villa", new { id = villa.Id })" class="btn btn-primary mt-2">View Details</a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div> *@
+
+
+<div class="container mt-4">
+    <h3 class="text-white">Available Villas</h3>
+    <div class="row">
+        @foreach (var villa in Model.VillaList)
+        {
+            <div class="col-md-6 col-lg-4 mb-3">
+                <div class="card mb-3 villa-card" style="max-width: 540px; background-color: #343a40; color: white;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="@villa.ImgUrl" class="img-fluid rounded-start" alt="@villa.Name">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title" style="color: yellow">@villa.Name</h5>
+                                <p class="card-text">
+                                    Amenities: @string.Join(", ", villa.Amenities.Select(a => a.Name))
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-body-secondary">Max capacity: @villa.Occupency</small> <br />
+                                    <small class="text-body-secondary">Villa Size: @villa.Sqft</small> <br />
+                                    <small class="text-body-secondary">Price: <span style="color: yellow"> @villa.price</span> </small> <br />
+                                </p>
+                                <!-- Button that triggers the modal -->
+                                <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#villaDetailsModal-@villa.Id">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for Villa Details -->
+            <div class="modal fade" id="villaDetailsModal-@villa.Id" tabindex="-1" aria-labelledby="villaDetailsModalLabel-@villa.Id" aria-hidden="true" >
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="villaDetailsModalLabel-@villa.Id">Villa Details: @villa.Name</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <partial name="_VillaDetail"  model="@villa" />                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

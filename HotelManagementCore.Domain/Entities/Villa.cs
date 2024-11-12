@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,5 +22,8 @@ namespace HotelManagementCore.Domain.Entities
         public string? ImgUrl { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get;set; }
+
+        [ValidateNever]
+        public IEnumerable<Amenity> Amenities { get; set; }
     }
 }

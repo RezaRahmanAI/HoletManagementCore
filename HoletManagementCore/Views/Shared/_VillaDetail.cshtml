@@ -1,0 +1,23 @@
+﻿@model Villa
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="@Model.ImgUrl" class="img-fluid rounded-start" alt="@Model.Name">
+    </div>
+    <div class="col-md-8">
+        <h3>@Model.Name</h3>
+        <h5>@Model.Description</h5>
+        <hr />
+        <p><strong>Villa Size:</strong> @Model.Sqft sqft</p>
+        <p><strong>Max Capacity:</strong> @Model.Occupency</p>
+        <p><strong>Price:</strong> @Model.price $</p>
+
+        <h4>Amenities:</h4>
+        <ul>
+            @foreach (var amenity in Model.Amenities)
+            {
+                <li>@amenity.Name</li>
+            }
+        </ul>
+    </div>
+</div>
