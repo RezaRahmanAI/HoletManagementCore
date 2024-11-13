@@ -25,6 +25,35 @@ namespace HoletManagementCore.Controllers
             return View(vm);
         }
 
+        [HttpPost]
+        public IActionResult Index(HomeVm homeVm)
+        {
+            homeVm.VillaList = _unitOfWork.Villa.GetAll(includeProperties: "Amenities");
+            
+            return View(homeVm);
+        }
+
+        public IActionResult GetVillaByDate(int numNights, DateOnly checkInDate)
+        {
+            var villaList = _unitOfWork.Villa.GetAll(includeProperties: "Amenities").ToList();
+            foreach (var villa in villaList)
+            {
+                if (villa.Id % 2 == 0)
+                {
+                    villa.IsAvailable = false;
+                }
+            }
+
+            HomeVm homeVm = new()
+            {
+                CheckInDate = checkInDate,
+                VillaList = villaList,
+                Night = numNights
+            };
+
+            return PartialView("_VillaList",homeVm);
+        }
+
         public IActionResult Privacy()
         {
             return View();

@@ -1,0 +1,63 @@
+﻿@model HomeVm
+
+<div class="container mt-4" id="villaListContainer">
+    <h3 class="text-white">Available Villas</h3>
+    <div class="row">
+        @foreach (var villa in Model.VillaList)
+        {
+            <div class="col-md-6 col-lg-4 mb-3">
+                <div class="card mb-3 villa-card" style="max-width: 540px; background-color: #343a40; color: white;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="@villa.ImgUrl" class="img-fluid rounded-start" alt="@villa.Name">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title" style="color: yellow">@villa.Name</h5>
+                                <p class="card-text">
+                                    Amenities: @string.Join(", ", villa.Amenities.Select(a => a.Name))
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-body-secondary">Max capacity: @villa.Occupency</small> <br />
+                                    <small class="text-body-secondary">Villa Size: @villa.Sqft</small> <br />
+                                    <small class="text-body-secondary">Price: <span style="color: yellow"> @villa.price</span> </small> <br />
+                                </p>
+                                <!-- Button that triggers the modal -->
+                                <button class="btn btn-primary mt-2" data-bs-toggle="modal" data-bs-target="#villaDetailsModal-@villa.Id">View Details</button>
+                                @if (Model.CheckInDate > DateOnly.FromDateTime(DateTime.Now))
+                                {
+                                    if (villa.IsAvailable)
+                                    {
+                                        @* data - bs - target = "#villaDetailsModal-@villa.Id" *@
+                                        <a class="btn btn-success mt-2" asp-controller="Booking" asp-action="FinalizeBooking" asp-route-villaId="@villa.Id" asp-route-checkInDate="@Model.CheckInDate" asp-route-nights="@Model.Night">Book Now</a>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-danger disabled mt-2" data-bs-toggle="modal" data-bs-target="#villaDetailsModal-@villa.Id">Sold Out</button>
+                                    }
+
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for Villa Details -->
+            <div class="modal fade" id="villaDetailsModal-@villa.Id" tabindex="-1" aria-labelledby="villaDetailsModalLabel-@villa.Id" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="villaDetailsModalLabel-@villa.Id">Villa Details: @villa.Name</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <partial name="_VillaDetail" model="@villa" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

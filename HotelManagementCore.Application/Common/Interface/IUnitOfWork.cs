@@ -11,6 +11,8 @@ namespace HotelManagementCore.Application.Common.Interface
         IVillaRepository Villa {  get; }
         IAmenityRepository Amenity {  get; }
         IVillaNumberRepository VillaNumber { get; }
+        IBookingRepository Booking { get; }
+        IApplicationUserRepository ApplicationUser { get; }
         void Save();
     }
 }

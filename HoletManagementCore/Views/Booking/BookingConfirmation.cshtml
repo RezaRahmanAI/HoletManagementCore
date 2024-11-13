@@ -1,0 +1,80 @@
+﻿@model int
+
+@{
+    var booking = Model;
+    var bookingDetails = ViewData["BookingDetails"] as Booking;
+}
+
+@{
+    ViewData["Title"] = "Booking Confirmation";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded">
+                <div class="card-header text-center bg-primary text-white">
+                    <h3>Booking Confirmation</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Villa Information -->
+                    <h5 class="card-title">Villa Information</h5>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <img src="@bookingDetails.villa.ImgUrl" class="img-fluid rounded" alt="@bookingDetails.villa.Name" />
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Name:</strong> @bookingDetails.villa.Name</li>
+                                <li class="list-group-item"><strong>Max Capacity:</strong> @bookingDetails.villa.Occupency</li>
+                                <li class="list-group-item"><strong>Size:</strong> @bookingDetails.villa.Sqft sq ft</li>
+                                <li class="list-group-item"><strong>Price per Night:</strong> $@bookingDetails.villa.price</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Booking Details -->
+                    <h5 class="card-title">Booking Details</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Check-In Date:</strong> @bookingDetails.CheckInDate.ToShortDateString()</li>
+                        <li class="list-group-item"><strong>Check-Out Date:</strong> @bookingDetails.CheckOutDate.ToShortDateString()</li>
+                        <li class="list-group-item"><strong>Nights:</strong> @bookingDetails.Nights</li>
+                        <li class="list-group-item"><strong>Total Cost:</strong> $@bookingDetails.TotalCost</li>
+                    </ul>
+
+                    <!-- Customer Information -->
+                    <h5 class="card-title">Customer Information</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Name:</strong> @bookingDetails.Name</li>
+                        <li class="list-group-item"><strong>Email:</strong> @bookingDetails.Email</li>
+                        <li class="list-group-item"><strong>Phone:</strong> @bookingDetails.Phone</li>
+                    </ul>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="card-footer text-center">
+                    <a href="@Url.Action("Index", "Home")" class="btn btn-primary mt-3">Return to Homepage</a>
+                    <a href="@Url.Action("ViewBookings", "Booking")" class="btn btn-secondary mt-3">View My Bookings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Custom CSS for modern style -->
+<style>
+    .card {
+        border-radius: 1rem;
+    }
+    .card-header {
+        background-color: #007bff;
+        color: white;
+    }
+    .card-body {
+        padding: 2rem;
+    }
+    .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+</style>

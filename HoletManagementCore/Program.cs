@@ -13,11 +13,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServe
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-builder.Services.ConfigureApplicationCookie(opt =>
-{
-    opt.AccessDeniedPath = "Account/AccessDenied";
-    opt.LogoutPath = "Account/Login";
-});
+//builder.Services.ConfigureApplicationCookie(opt =>
+//{
+//    opt.AccessDeniedPath = "Account/AccessDenied";
+//    opt.LogoutPath = "Account/Login";
+//});
 
 builder.Services.Configure<IdentityOptions>(opt =>
 {
