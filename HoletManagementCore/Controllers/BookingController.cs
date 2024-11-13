@@ -44,19 +44,97 @@ namespace HoletManagementCore.Controllers
 
 
 
+        //[Authorize]
+        //public IActionResult FinalizeBooking(int villaId, DateTime checkInDate, int nights)
+        //{
+
+        //    var claimIdentity = (ClaimsIdentity)User.Identity;
+        //    var userId = claimIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+        //    ApplicationUser user = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
+
+        //    Booking booking = new()
+        //    {
+        //        VillaId = villaId,
+        //        villa = _unitOfWork.Villa.Get(u => u.Id == villaId, includeProperties: "Amenities"),
+        //        CheckInDate = checkInDate,
+        //        Nights = nights,
+        //        CheckOutDate = checkInDate.AddDays(nights),
+        //        UserId = userId,
+        //        Phone = user.PhoneNumber,
+        //        Email = user.Email,
+        //        Name = user.Name
+        //    };
+
+        //    booking.TotalCost = booking.villa.price * nights;
+
+        //    return View(booking);
+        //}
+
+
+        //[Authorize]
+        //public IActionResult FinalizeBooking(int villaId, DateTime checkInDate, int nights)
+        //{
+        //    var claimIdentity = (ClaimsIdentity)User.Identity;
+        //    var userId = claimIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+        //    ApplicationUser user = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
+
+        //    // Get the villa and villa numbers for the selected villaId
+        //    var villa = _unitOfWork.Villa.Get(u => u.Id == villaId, includeProperties: "VillaNumbers");
+        //    var villaNumbers = _unitOfWork.VillaNumber.GetAll(vn => vn.VillaId == villaId).ToList();
+
+        //    // Create a booking object
+        //    Booking booking = new()
+        //    {
+        //        VillaId = villaId,
+        //        villa = villa,
+        //        CheckInDate = checkInDate,
+        //        Nights = nights,
+        //        CheckOutDate = checkInDate.AddDays(nights),
+        //        UserId = userId,
+        //        Phone = user.PhoneNumber,
+        //        Email = user.Email,
+        //        Name = user.Name
+        //    };
+
+        //    // Calculate the total cost
+        //    booking.TotalCost = booking.villa.price * nights;
+
+        //    // Pass villa numbers to the view for the dropdown
+        //    ViewData["VillaNumbers"] = villaNumbers;
+
+        //    return View(booking);
+        //}
+
+
         [Authorize]
         public IActionResult FinalizeBooking(int villaId, DateTime checkInDate, int nights)
         {
-
             var claimIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             ApplicationUser user = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
 
+            // Get the villa and villa numbers for the selected villaId
+            var villa = _unitOfWork.Villa.Get(u => u.Id == villaId, includeProperties: "VillaNumbers");
+            var villaNumbers = _unitOfWork.VillaNumber.GetAll(vn => vn.VillaId == villaId).ToList();
+
+            // Get villa numbers that have any incomplete bookings
+            var incompleteVillaNumbers = _unitOfWork.Booking
+                .GetAll(b => b.Status != SD.StatusCompleted) // Select bookings that are not "Complete"
+                .Select(b => b.VillaNumber) // Assuming VillaNumber is a property in Booking
+                .Distinct()
+                .ToList();
+
+            // Filter out villa numbers that have incomplete bookings
+            villaNumbers = villaNumbers.Where(vn => !incompleteVillaNumbers.Contains(vn.VillaNo)).ToList();
+
+            // Create a booking object
             Booking booking = new()
             {
                 VillaId = villaId,
-                villa = _unitOfWork.Villa.Get(u => u.Id == villaId, includeProperties: "Amenities"),
+                villa = villa,
                 CheckInDate = checkInDate,
                 Nights = nights,
                 CheckOutDate = checkInDate.AddDays(nights),
@@ -66,10 +144,16 @@ namespace HoletManagementCore.Controllers
                 Name = user.Name
             };
 
+            // Calculate the total cost
             booking.TotalCost = booking.villa.price * nights;
+
+            // Pass the filtered villa numbers to the view for the dropdown
+            ViewData["VillaNumbers"] = villaNumbers;
 
             return View(booking);
         }
+
+
 
 
 

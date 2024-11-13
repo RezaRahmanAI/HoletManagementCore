@@ -55,6 +55,13 @@
                                 <strong>Total Cost:</strong>
                                 <input asp-for="TotalCost" class="form-control" type="number" step="0.01" readonly />
                             </li>
+                            <!-- Villa Number Dropdown -->
+                            <li class="list-group-item">
+                                <strong>Select Villa Number:</strong>
+                                <select asp-for="VillaNumber" class="form-control" asp-items="@(new SelectList(ViewData["VillaNumbers"] as IEnumerable<VillaNumber>, "VillaNo", "VillaNo"))">
+                                    <option value="">-- Select Villa Number --</option>
+                                </select>
+                            </li>
                         </ul>
                     </div>
 
@@ -71,17 +78,19 @@
                             </li>
                             <li class="list-group-item">
                                 <strong>Phone:</strong>
-                                <input asp-for="Phone" class="form-control" type="tel" />
+                                <input asp-for="Phone" class="form-control" type="text" />
                             </li>
                         </ul>
                     </div>
 
                     <div class="card-footer text-center">
-                        <button type="submit" class="btn btn-success mt-3">Confirm Booking</button>
-                        <a href="@Url.Action("Index", "Home")" class="btn btn-secondary mt-3">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Finalize Booking</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

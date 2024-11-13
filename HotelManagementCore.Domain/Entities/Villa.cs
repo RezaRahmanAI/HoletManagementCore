@@ -25,6 +25,8 @@ namespace HotelManagementCore.Domain.Entities
 
         [ValidateNever]
         public IEnumerable<Amenity> Amenities { get; set; }
+        [ValidateNever]
+        public IEnumerable<VillaNumber> VillaNumbers { get; set; }
 
         [NotMapped]
         public bool IsAvailable { get; set; } = true;
