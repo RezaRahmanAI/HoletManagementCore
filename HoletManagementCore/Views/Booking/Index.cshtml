@@ -1,4 +1,5 @@
-﻿@model IEnumerable<HotelManagementCore.Domain.Entities.Booking>
+﻿@using HotelManagementCore.Application.Utility
+@model IEnumerable<HotelManagementCore.Domain.Entities.Booking>
 
 @{
     ViewData["Title"] = "My Bookings";
@@ -31,8 +32,32 @@
                             <td>$@booking.TotalCost</td>
                             <td>@booking.Status</td>
                             <td>
-                                <a href="@Url.Action("BookingConfirmation", "Booking", new { id = booking.Id })" class="btn btn-info btn-sm">View</a>
+                                <form asp-action="CheckIn" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@booking.Id" />
+                                    <button type="submit" class="btn btn-warning btn-sm"
+                                            onclick="return confirm('Are you sure you want to check in?');">
+                                        Check-In
+                                    </button>
+                                </form>
+
+                                <form asp-action="CancelBooking" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@booking.Id" />
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Are you sure you want to cancel this booking?');">
+                                        Cancel
+                                    </button>
+                                </form>
+
+                                <form asp-action="CompleteBooking" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@booking.Id" />
+                                    <button type="submit" class="btn btn-success btn-sm"
+                                            onclick="return confirm('Are you sure you want to complete this booking?');">
+                                        Complete
+                                    </button>
+                                </form>
                             </td>
+
+
                         </tr>
                     }
                 </tbody>

@@ -43,71 +43,6 @@ namespace HoletManagementCore.Controllers
 
 
 
-
-        //[Authorize]
-        //public IActionResult FinalizeBooking(int villaId, DateTime checkInDate, int nights)
-        //{
-
-        //    var claimIdentity = (ClaimsIdentity)User.Identity;
-        //    var userId = claimIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-        //    ApplicationUser user = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
-
-        //    Booking booking = new()
-        //    {
-        //        VillaId = villaId,
-        //        villa = _unitOfWork.Villa.Get(u => u.Id == villaId, includeProperties: "Amenities"),
-        //        CheckInDate = checkInDate,
-        //        Nights = nights,
-        //        CheckOutDate = checkInDate.AddDays(nights),
-        //        UserId = userId,
-        //        Phone = user.PhoneNumber,
-        //        Email = user.Email,
-        //        Name = user.Name
-        //    };
-
-        //    booking.TotalCost = booking.villa.price * nights;
-
-        //    return View(booking);
-        //}
-
-
-        //[Authorize]
-        //public IActionResult FinalizeBooking(int villaId, DateTime checkInDate, int nights)
-        //{
-        //    var claimIdentity = (ClaimsIdentity)User.Identity;
-        //    var userId = claimIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-        //    ApplicationUser user = _unitOfWork.ApplicationUser.Get(u => u.Id == userId);
-
-        //    // Get the villa and villa numbers for the selected villaId
-        //    var villa = _unitOfWork.Villa.Get(u => u.Id == villaId, includeProperties: "VillaNumbers");
-        //    var villaNumbers = _unitOfWork.VillaNumber.GetAll(vn => vn.VillaId == villaId).ToList();
-
-        //    // Create a booking object
-        //    Booking booking = new()
-        //    {
-        //        VillaId = villaId,
-        //        villa = villa,
-        //        CheckInDate = checkInDate,
-        //        Nights = nights,
-        //        CheckOutDate = checkInDate.AddDays(nights),
-        //        UserId = userId,
-        //        Phone = user.PhoneNumber,
-        //        Email = user.Email,
-        //        Name = user.Name
-        //    };
-
-        //    // Calculate the total cost
-        //    booking.TotalCost = booking.villa.price * nights;
-
-        //    // Pass villa numbers to the view for the dropdown
-        //    ViewData["VillaNumbers"] = villaNumbers;
-
-        //    return View(booking);
-        //}
-
-
         [Authorize]
         public IActionResult FinalizeBooking(int villaId, DateTime checkInDate, int nights)
         {
@@ -191,6 +126,63 @@ namespace HoletManagementCore.Controllers
             ViewData["BookingDetails"] = booking;
 
             return View(id);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult CheckIn(int id)
+        {
+            // Retrieve the booking by ID
+            var booking = _unitOfWork.Booking.Get(b => b.Id == id);
+
+            if (booking == null)
+            {
+                return NotFound(); // Return a 404 if the booking is not found
+            }
+
+            // Update the booking status to CheckIn
+            booking.Status = SD.StatusCheckIn;
+            booking.CheckInDate = DateTime.Now;
+
+            // Save changes to the database
+            _unitOfWork.Booking.Update(booking);
+            _unitOfWork.Save();
+
+            // Redirect to the Index view or another confirmation page
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        [Authorize]
+        public IActionResult CompleteBooking(int id)
+        {
+            var booking = _unitOfWork.Booking.Get(b => b.Id == id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            booking.Status = SD.StatusCompleted;
+            _unitOfWork.Booking.Update(booking);
+            _unitOfWork.Save();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        [Authorize]
+        public IActionResult CancelBooking(int id)
+        {
+            var booking = _unitOfWork.Booking.Get(b => b.Id == id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            booking.Status = SD.StatusCancelled;
+            _unitOfWork.Booking.Update(booking);
+            _unitOfWork.Save();
+
+            return RedirectToAction(nameof(Index));
         }
 
 
